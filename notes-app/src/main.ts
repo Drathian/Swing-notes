@@ -56,10 +56,10 @@ postNote(note);
 
 
 class Notes {
-  notesContainer:HTMLElement | null;
-  btnAdd:HTMLElement | null;
-  noteId:number | null;
-  colourSet:Array<{label:string, value:string}> | null;
+  notesContainer: HTMLElement | null;
+  btnAdd: HTMLElement | null;
+  noteId: number | null;
+  colourSet: Array<{label:string, value:string}> | null;
   constructor(){
     this.noteId = 0;
     this.colourSet = [
@@ -75,21 +75,21 @@ class Notes {
   }
   
   getTimeStamp(){
-    let date:Date = new Date();
-    let day:number = date.getDate();
-    let month:number = date.getMonth() + 1;
-    let year:number = date.getFullYear();
-    let hour:number = (date.getHours() > 12) ? date.getHours() - 12 : date.getHours();
-    let min:number | string= (date.getMinutes() < 10) ? `0${date.getMinutes()}` : date.getMinutes();
-    let sec:number = date.getSeconds();
-    let ampm:string = (date.getHours() >= 12) ? 'pm' : 'am';
+    let date: Date = new Date();
+    let day: number = date.getDate();
+    let month: number = date.getMonth() + 1;
+    let year: number = date.getFullYear();
+    let hour: number = (date.getHours() > 12) ? date.getHours() - 12 : date.getHours();
+    let min: number | string= (date.getMinutes() < 10) ? `0${date.getMinutes()}` : date.getMinutes();
+    let sec: number = date.getSeconds();
+    let ampm: string = (date.getHours() >= 12) ? 'pm' : 'am';
     return `${day}/${month}/${year} ${hour}:${min}:${sec} ${ampm}`;
   }
 
-  updateNoteLabel(event:Event){
-    let selectedElement:HTMLElement | null = event.target;
-    let elements:Array<HTMLElement>= selectedElement.parentNode.getElementsByTagName('a');
-    let colour:string | null = selectedElement.getAttribute('data-colour');
+  updateNoteLabel(event: Event){
+    let selectedElement: HTMLElement | null = event.target;
+    let elements: Array<HTMLElement>= selectedElement.parentNode.getElementsByTagName('a');
+    let colour: string | null = selectedElement.getAttribute('data-colour');
     this.setAttribute('style',`background-color:${colour}`);
     for (let element of elements){
       element.classList.toggle('is--active', false);
@@ -98,9 +98,9 @@ class Notes {
     return false;
   }
   
-  deleteNote(event:Event){
+  deleteNote(event: Event){
     event.target.removeEventListener('click', this.deleteNote);
-    let elem:HTMLElement = this;
+    let elem: HTMLElement = this;
     if (elem.parentNode) {
         elem.parentNode.removeChild(elem);
     }
@@ -109,16 +109,16 @@ class Notes {
   
   createNote(){
     this.noteId += 1;
-    let container:HTMLElement = document.createElement('div');
-    let button:HTMLElement = document.createElement('a');
-    let title:HTMLElement = document.createElement('div');
-    let header:HTMLElement = document.createElement('header');
-    let footer:HTMLElement = document.createElement('footer');
-    let body:HTMLElement = document.createElement('div');
-    let content:HTMLElement = document.createElement('div');
-    let select:HTMLElement = document.createElement('select');
-    let id:string = `note${this.noteId}`;
-    let _this:any = this;
+    let container: HTMLElement = document.createElement('div');
+    let button: HTMLElement = document.createElement('a');
+    let title: HTMLElement = document.createElement('div');
+    let header: HTMLElement = document.createElement('header');
+    let footer: HTMLElement = document.createElement('footer');
+    let body: HTMLElement = document.createElement('div');
+    let content: HTMLElement = document.createElement('div');
+    let select: HTMLElement = document.createElement('select');
+    let id: string = `note${this.noteId}`;
+    let _this: any = this;
     
     container.id = id;
     container.classList.add('note__container');
@@ -131,7 +131,7 @@ class Notes {
     select.classList.add('note__label');
     
     for (let colour of this.colourSet) {
-      let option:HTMLElement = document.createElement('a');
+      let option: HTMLElement = document.createElement('a');
       option.classList.add('note__colour-picker')
       option.setAttribute('data-colour', colour.value);
       option.setAttribute('href', '#colour');
@@ -142,7 +142,7 @@ class Notes {
       footer.appendChild(option);
     }
     
-    let firstOption:HTMLElement = footer.getElementsByTagName('a');
+    let firstOption: HTMLElement = footer.getElementsByTagName('a');
     firstOption[0].classList.add('is--active');
     container.setAttribute('style',`background-color:${firstOption[0].getAttribute('data-colour')}`);
     
@@ -163,10 +163,10 @@ class Notes {
     return container;
   }
   
-  addNote(event:Event){
+  addNote(event: Event){
     this.notesContainer.insertBefore(this.createNote(), this.notesContainer.childNodes[0]);
   }
   
 }
 
-let notes:Notes = new Notes();
+let notes: Notes = new Notes();

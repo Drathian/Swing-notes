@@ -1,0 +1,36 @@
+@mixin element($element) {
+    &__#{$element} {
+      @content;
+    }
+  }
+  
+  @mixin modifier($modifier) {
+    &--#{$modifier} {
+      @content;
+    }
+  }
+  @mixin media-query($media-query, $max: false) {
+    @if ($media-query == md) {
+      @if ($max == true) {
+        @media only screen and (width: #{$screen-md}) {
+          @content;
+        }
+      } @else {
+        @media only screen and (min-width: #{$screen-md}) {
+          @content;
+        }
+      }
+    }
+  
+    @if ($media-query == sm) {
+      @if ($max == true) {
+        @media only screen and (width:#{$screen-sm}) {
+          @content;
+        }
+      } @else {
+        @media only screen and (min-width: #{$screen-sm}) {
+          @content;
+        }
+      }
+    }
+  }

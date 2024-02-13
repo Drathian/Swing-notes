@@ -4,10 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Notepad</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div class="app">
+      <header class="header__container">
+        <div class="header__content">
+          <h1 class="header__title">Notes</h1><a class="header__button" id="btnAdd" href="#">&#43;</a>
+        </div>
+      </header>
+      <div class="main" id="main">
+        <div class="notes" id="notes"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -10,28 +10,56 @@ const note: any = {
   note: "Min första anteckning"
 }
 
-async function fetchData() {
+async function getNotes(username) {
   try {
-    const response: AxiosResponse = await axios.get(`${API_URL}/api/notes/:username`, {
-      method: "GET",
-      body: JSON.stringify(note),
+    const response = await axios.get(`${API_URL}/api/notes/:username`, {
       headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
-      
     });
-    console.log('Response data:', response.data);
-    // Handle the data as needed
+
+    const notes = response.data;
+
+    return notes;
   } catch (error) {
-    console.error('Error fetching data:', Error);
-    // Handle errors
+    console.error(error);
   }
 }
 
-fetchData();
+async function showPrivatePage() {
+  const username = localStorage.getItem('username');
 
+  let notes: any[] = await getNotes(username);
+
+  let privatePage = document.querySelector('.private-page');
+
+  if (!privatePage) {
+    return;
+  }
+
+  if (!notes) {
+    privatePage.innerHTML = 'No notes found';
+    return;
+  } else if (notes.length === 0) {
+    privatePage.innerHTML = 'No notes found';
+    return;
+  }
+
+  privatePage.innerHTML = '';
+
+  for (const note of notes) {
+    const noteElement = document.createElement('div');
+
+    noteElement.innerHTML = `
+      <p>${note.title}</p>
+      <p>${note.note}</p>
+    `;
+
+    privatePage.appendChild(noteElement);
+  }
+}
+
+showPrivatePage();
 
 async function postNote (note: any) {
   console.log(note);
